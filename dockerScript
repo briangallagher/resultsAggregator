@@ -1,0 +1,16 @@
+// set local environment
+eval "$(docker-machine env default)"
+
+// Create docker image
+docker build -t briangallagher/resultsAggregator:v1 .
+
+// Push to docker hub
+docker push briangallagher/resultsAggregator
+
+// Push to Kuberntes
+
+// Run a container from my own Docker Hub account
+kubectl run resultsAggregator --image=briangallagher/resultsAggregator:v1 --port=8006
+
+// expose the deployment
+kubectl expose deployment resultsAggregator --type="NodePort"
